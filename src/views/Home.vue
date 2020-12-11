@@ -16,6 +16,14 @@
 				>
 					<h2>Artistas Todo Frontend</h2>
 					<img alt="Vue logo" src="../assets/logo.png" />
+
+					<div
+						v-for="task in tasks"
+						:key="task.id"
+						class="todo-task"
+					>
+						{{ task }}
+					</div>
 				</v-col>
 			</v-row>
 		</v-container>
@@ -23,8 +31,23 @@
 </template>
 
 <script>
+	import { mapState, mapActions } from 'vuex';
+
 	export default {
-		name: 'Home'
+		name: 'Home',
+		computed: {
+			...mapState([
+				'tasks'
+			])
+		},
+		created() {
+			this.getTasks();
+		},
+		methods: {
+			...mapActions([
+				'getTasks'
+			])
+		}
 	};
 </script>
 
