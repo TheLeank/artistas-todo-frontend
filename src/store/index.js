@@ -17,19 +17,22 @@ export default new Vuex.Store({
 			const sampleTasks = [
 				{
 					id: 1,
-					status: false,
+					completed: false,
 					text: 'first task'
 				},
 				{
 					id: 2,
-					status: false,
+					completed: true,
 					text: 'another task'
 				}
 			];
 
-			context.commit('setTasks', sampleTasks);
-
-			return sampleTasks;
+			return new Promise((resolve) => {
+				setTimeout(() => {
+					context.commit('setTasks', sampleTasks);
+					resolve(sampleTasks);
+				}, 1500);
+			});
 		}
 	}
 });

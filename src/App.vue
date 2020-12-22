@@ -1,54 +1,17 @@
 <template>
-	<v-app>
-		<v-app-bar
-			app
-			color="primary"
-			dark
-		>
-			<div class="d-flex align-center">
-				<v-img
-					alt="Vuetify Logo"
-					class="shrink mr-2"
-					contain
-					src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-					transition="scale-transition"
-					width="40"
-				/>
+	<div>
+		<el-container>
+			<h2>Artistas Todo Frontend</h2>
 
-				<v-img
-					alt="Vuetify Name"
-					class="shrink mt-1 hidden-sm-and-down"
-					contain
-					min-width="100"
-					src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-					width="100"
-				/>
-			</div>
-
-			<v-spacer></v-spacer>
-
-			<v-btn
-				text
-				to="/"
-				class="mr-2"
-			>
-				<v-icon class="mr-2">mdi-home</v-icon>
-				Home
-			</v-btn>
-
-			<v-btn
-				text
-				to="/about"
-			>
-				<v-icon class="mr-2">mdi-account</v-icon>
-				About
-			</v-btn>
-		</v-app-bar>
-
-		<v-main>
-			<router-view />
-		</v-main>
-	</v-app>
+			<el-header height="auto">
+				<router-link to="/">Tasks</router-link>
+				<router-link to="/about">About</router-link>
+			</el-header>
+			<el-main>
+				<router-view></router-view>
+			</el-main>
+		</el-container>
+	</div>
 </template>
 
 <script>
@@ -56,3 +19,22 @@
 		name: 'App'
 	};
 </script>
+
+<style lang="scss">
+	body, html {
+		height: 100%;
+		padding: 0;
+		margin: 0;
+		background-color: #f4f6fa;
+	}
+
+	.el-header {
+		padding: 25px 15px;
+		background-color: #ffffff;
+		border: solid 1px #c2cfe5;
+
+		a + a {
+			margin-left: 20px;
+		}
+	}
+</style>
