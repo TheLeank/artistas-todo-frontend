@@ -2,9 +2,8 @@
 	<el-row type="flex" justify="center">
 		<el-col :xs="24" :md="18">
 
-			<!-- TODO: add loading indicator -->
-
-			<div class="todo-list">
+			<LoadingIndicator v-if="loading" />
+			<div v-else class="todo-list">
 				<div class="input-wrapper">
 					<el-input v-model="taskText" placeholder="Todo content..."></el-input>
 					<el-button @click="addTask" type="primary">Add</el-button>
@@ -17,6 +16,7 @@
 							:task="task"
 							@set-completed-status="setCompletedStatus"
 							@delete-task="deleteTask"
+							@update-task="updateTask"
 						/>
 					</template>
 					<div v-else class="no-tasks-message">
@@ -32,11 +32,13 @@
 <script>
 	import { mapState, mapActions } from 'vuex';
 	import TodoListItem from '../components/TodoListItem';
+	import LoadingIndicator from '../components/LoadingIndicator';
 
 	export default {
 		name: 'Home',
 		components: {
-			TodoListItem
+			TodoListItem,
+			LoadingIndicator
 		},
 		data() {
 			return {
@@ -74,6 +76,10 @@
 			deleteTask(id) {
 				// TODO: implement
 				// this.$store.dispatch('deleteTask', id);
+			},
+			updateTask(id, text) {
+				// TODO: implement
+				console.log(id, text);
 			}
 		}
 	};
