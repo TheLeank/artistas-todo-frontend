@@ -1,7 +1,7 @@
 <template>
 	<div class="todo-list-item">
 		<template v-if="!editing">
-			<el-checkbox v-model="task.completed" class="task-status-toggle">
+			<el-checkbox v-model="task.completed" @change="onCompletedChange" class="task-status-toggle">
 				{{ task.text }}
 			</el-checkbox>
 
@@ -37,15 +37,10 @@
 				newTaskText: ''
 			};
 		},
-		watch: {
-			task: {
-				handler(newVal) {
-					this.$emit('set-completed-status', newVal.id, newVal.completed);
-				},
-				deep: true
-			}
-		},
 		methods: {
+			onCompletedChange(completed) {
+				this.$emit('set-completed-status', this.task.id, completed);
+			},
 			editTask() {
 				this.newTaskText = this.task.text;
 				this.editing = true;

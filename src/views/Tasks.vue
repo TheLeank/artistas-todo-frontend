@@ -6,7 +6,9 @@
 			<div v-else class="todo-list">
 				<div class="input-wrapper">
 					<el-input v-model="taskText" placeholder="Todo content..."></el-input>
-					<el-button @click="addTask" type="primary">Add</el-button>
+					<el-button @click="onAddTask" type="primary">
+						Add
+					</el-button>
 				</div>
 				<div class="tasks-list">
 					<template v-if="tasks && tasks.length > 0">
@@ -14,9 +16,9 @@
 							v-for="task in tasks"
 							:key="task.id"
 							:task="task"
-							@set-completed-status="setCompletedStatus"
-							@delete-task="deleteTask"
-							@update-task="updateTask"
+							@set-completed-status="onSetCompletedStatus"
+							@delete-task="onDeleteTask"
+							@update-task="onUpdateTask"
 						/>
 					</template>
 					<div v-else class="no-tasks-message">
@@ -57,29 +59,37 @@
 		},
 		methods: {
 			...mapActions([
-				'getTasks'
+				'getTasks',
+				'addTask',
+				'updateTask',
+				'deleteTask'
 			]),
-			addTask() {
-				/* TODO: implement
-				this.$store.dispatch('addTask', this.taskText);
+			async onAddTask() {
+				await this.addTask(this.taskText);
 				this.taskText = '';
-				*/
 			},
-			setCompletedStatus(id, completed) {
-				/* TODO: implement
-				this.$store.dispatch('setCompletedStatus', {
-					id,
+			async onSetCompletedStatus(id, completed) {
+				const updatedTask = this.tasks.find((task) => {
+					return task.id === id;
+				});
+
+				this.updateTask({
+					...updatedTask,
 					completed
 				});
-				*/
 			},
-			deleteTask(id) {
-				// TODO: implement
-				// this.$store.dispatch('deleteTask', id);
+			onDeleteTask(id) {
+				this.deleteTask(id);
 			},
-			updateTask(id, text) {
-				// TODO: implement
-				console.log(id, text);
+			onUpdateTask(id, text) {
+				const updatedTask = this.tasks.find((task) => {
+					return task.id === id;
+				});
+
+				this.updateTask({
+					...updatedTask,
+					text
+				});
 			}
 		}
 	};
